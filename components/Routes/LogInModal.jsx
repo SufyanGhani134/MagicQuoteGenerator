@@ -12,7 +12,7 @@ export default function LogInModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
+          Log In
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>

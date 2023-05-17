@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Form, redirect, useNavigate } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import AlertCard from "../AlertCard";
 
 function SignUpForm() {
@@ -7,8 +7,8 @@ function SignUpForm() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState();
-  const isValid = useRef(true);
-  const navigate = useNavigate()
+  const [isValid, setIsValid] = useState(true)
+  const navigate = useNavigate();
 
   function validation() {
     const userNamePattern = /^[a-zA-Z\s]+$/;
@@ -18,12 +18,13 @@ function SignUpForm() {
       if (password !== confirmPassword) throw "Passwords do not match";
     } catch (error) {
       setError(error);
-      isValid.current = false;
+      setIsValid(false)
     }
   }
   async function handleSubmit(e) {
     e.preventDefault();
     validation();
+    console.log(isValid)
     if (isValid.current == true) {
       const formData = new FormData(e.target);
       const userInfo = Object.fromEntries(formData);
@@ -31,18 +32,15 @@ function SignUpForm() {
       users.push(userInfo);
       localStorage.setItem("users", JSON.stringify(users));
       console.log(users);
-      navigate('/')
+      navigate("/");
     }
   }
 
   return (
     <>
-      {!isValid.current && <AlertCard isValidRef={isValid} error={error} />}
+      {!isValid && <AlertCard isValidRef={isValid} error={error} />}
       <h2 className="mb-3">Sign Up Info</h2>
-      <Form
-        className="w-50 container text-start"
-        onSubmit={handleSubmit}
-      >
+      <Form className="w-50 container text-start" onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleFormControlInput1" className="form-label">
             User Name
@@ -128,9 +126,8 @@ function SignUpForm() {
           <button
             className="btn btn-primary"
             type="submit"
-            // onClick={validation}
           >
-            Submit form
+            Sign Up
           </button>
         </div>
       </Form>
@@ -139,4 +136,3 @@ function SignUpForm() {
 }
 
 export default SignUpForm;
-

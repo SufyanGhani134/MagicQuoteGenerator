@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
 
-export default function AlertCard({isValidRef, error}) {
+export default function AlertCard({ error}) {
   const [show, setShow] = useState(true);
   function close(){
     setShow(false)
-    isValidRef.current = true
   }
 
   if (show) {
