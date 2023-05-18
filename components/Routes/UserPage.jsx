@@ -8,30 +8,48 @@ import UserQuotes from "../userQuotes";
 
 function UserPage() {
   const [userQuotes, setUserQuotes] = useState([]);
+  // const [noQuotes, setNoQuotes] = useState(true)
   const [userInfo, setUserInfo] = useState({});
   const location = useLocation();
   const user = location.state.user;
+
   const handleQuoteSubmit = (newQuotes) => {
     setUserQuotes([...userQuotes, newQuotes]);
     console.log(userQuotes);
     setUserInfo({ user, userQuotes });
     console.log(userInfo);
     localStorage.setItem(`${user.userName}`, JSON.stringify(userInfo));
+    // setNoQuotes(false);
   };
 
-  return (
-    <CardGroup>
-      <Card>
-        <QuoteCard />
-      </Card>
-      <div className="d-flex flex-column">
+  if (userQuotes == []) {
+    return (
+      <CardGroup>
         <Card>
-          <AddQuote onQuoteSubmit={handleQuoteSubmit} />
+          <QuoteCard />
         </Card>
-        <UserQuotes user={user}/>
-      </div>
-    </CardGroup>
-  );
+        <div className="d-flex flex-column">
+          <Card>
+            <AddQuote onQuoteSubmit={handleQuoteSubmit} />
+          </Card>
+        </div>
+      </CardGroup>
+    );
+  } else {
+    return (
+      <CardGroup>
+        <Card>
+          <QuoteCard />
+        </Card>
+        <div className="d-flex flex-column">
+          <Card>
+            <AddQuote onQuoteSubmit={handleQuoteSubmit} />
+          </Card>
+          <UserQuotes user={user} />
+        </div>
+      </CardGroup>
+    );
+  }
 }
 
 export default UserPage;

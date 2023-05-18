@@ -23,6 +23,7 @@ function AddQuote({ onQuoteSubmit }) {
             e.preventDefault();
             setAuthor(e.target.value);
           }}
+          required
         />
       </div>
       <div className="input-group my-2">
@@ -36,6 +37,7 @@ function AddQuote({ onQuoteSubmit }) {
             e.preventDefault();
             setQuote(e.target.value);
           }}
+          required
         ></textarea>
       </div>
       <button type="submit" className="btn btn-primary">

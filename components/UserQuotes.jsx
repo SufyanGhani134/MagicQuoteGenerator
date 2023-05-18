@@ -2,7 +2,6 @@ import React from "react";
 
 function UserQuotes({ user }) {
   const currentUser = JSON.parse(localStorage.getItem(`${user.userName}`));
-  console.log(currentUser.userQuotes);
   const userQuotes = currentUser.userQuotes;
   return (
     userQuotes && <ol className="list-group list-group-numbered">

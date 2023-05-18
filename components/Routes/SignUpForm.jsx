@@ -25,7 +25,7 @@ function SignUpForm() {
     e.preventDefault();
     validation();
     console.log(isValid)
-    if (isValid.current == true) {
+    if (isValid) {
       const formData = new FormData(e.target);
       const userInfo = Object.fromEntries(formData);
       let users = JSON.parse(localStorage.getItem("users")) || [];
