@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import QuoteCard from "../QuoteCard";
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 import AddQuote from "../AddQuote";
 import UserQuotes from "../userQuotes";
+import QuoteCarousel from "../QuoteCarousel";
 
 function UserPage() {
   const [userQuotes, setUserQuotes] = useState([]);
@@ -21,35 +22,19 @@ function UserPage() {
     localStorage.setItem(`${user.userName}`, JSON.stringify(userInfo));
     // setNoQuotes(false);
   };
-
-  if (userQuotes == []) {
-    return (
-      <CardGroup>
+  return (
+    <CardGroup>
+      <Card>
+        <QuoteCarousel />
+      </Card>
+      <div className="d-flex flex-column">
         <Card>
-          <QuoteCard />
+          <AddQuote onQuoteSubmit={handleQuoteSubmit} />
         </Card>
-        <div className="d-flex flex-column">
-          <Card>
-            <AddQuote onQuoteSubmit={handleQuoteSubmit} />
-          </Card>
-        </div>
-      </CardGroup>
-    );
-  } else {
-    return (
-      <CardGroup>
-        <Card>
-          <QuoteCard />
-        </Card>
-        <div className="d-flex flex-column">
-          <Card>
-            <AddQuote onQuoteSubmit={handleQuoteSubmit} />
-          </Card>
-          <UserQuotes user={user} />
-        </div>
-      </CardGroup>
-    );
-  }
+      <UserQuotes user={user} />
+      </div>
+    </CardGroup>
+  );
 }
 
 export default UserPage;

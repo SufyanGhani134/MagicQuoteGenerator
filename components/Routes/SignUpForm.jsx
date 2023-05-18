@@ -7,7 +7,9 @@ function SignUpForm() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState();
-  const [isValid, setIsValid] = useState(true)
+  // const [isValid, setIsValid] = useState(true)
+  const isValid = useRef(true)
+
   const navigate = useNavigate();
 
   function validation() {
@@ -18,14 +20,15 @@ function SignUpForm() {
       if (password !== confirmPassword) throw "Passwords do not match";
     } catch (error) {
       setError(error);
-      setIsValid(false)
+      // setIsValid(false)
+      isValid.current = false
     }
   }
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
     validation();
-    console.log(isValid)
-    if (isValid) {
+    console.log(isValid.current)
+    if (isValid.current == true) {
       const formData = new FormData(e.target);
       const userInfo = Object.fromEntries(formData);
       let users = JSON.parse(localStorage.getItem("users")) || [];
@@ -38,7 +41,7 @@ function SignUpForm() {
 
   return (
     <>
-      {!isValid && <AlertCard isValidRef={isValid} error={error} />}
+      {!isValid.current && <AlertCard isValidRef={isValid} error={error} />}
       <h2 className="mb-3">Sign Up Info</h2>
       <Form className="w-50 container text-start" onSubmit={handleSubmit}>
         <div className="mb-3">

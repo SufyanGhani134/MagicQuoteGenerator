@@ -15,7 +15,7 @@ function NavBar() {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
         <Button variant="outline-primary" onClick={()=> navigate('/Sign-Up')}>Sign Up</Button>
-        <Button variant="outline-primary mx-2" onClick={() => setModalShow(true)}>Log In</Button>
+        <Button variant="primary mx-2" onClick={() => setModalShow(true)}>Add Quote</Button>
         </Navbar.Collapse>
       </Container>
       <LogInModal show={modalShow} onHide={() => setModalShow(false)}/>

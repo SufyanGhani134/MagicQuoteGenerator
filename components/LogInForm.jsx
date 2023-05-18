@@ -9,7 +9,7 @@ function LogInForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const isUser = useRef(true); 
+  const isUser = useRef(true);
 
   function logInAuthentication(e) {
     e.preventDefault();
@@ -18,14 +18,17 @@ function LogInForm() {
     try {
       if (!user) throw "User is not registered.. Please Sign In";
       if (user.password !== password) throw "Password Incorrect";
+      if (user.password == "") throw "Password Required";
     } catch (error) {
       setError(error);
-      isUser.current = false
+      console.log(error);
+      isUser.current = false;
+      return isUser.current;
     }
-    console.log(user)
-    if(user){
-      console.log(user.userName)
-      navigate(`/${user.userName}` , { state: { user } })
+    console.log(user);
+    if (user) {
+      console.log(user.userName);
+      navigate(`/${user.userName}`, { state: { user } });
     }
   }
 
@@ -59,6 +62,7 @@ function LogInForm() {
               e.preventDefault();
               setPassword(e.target.value);
             }}
+            required
           />
         </Form.Group>
         <Button variant="primary" type="submit" onClick={logInAuthentication}>
