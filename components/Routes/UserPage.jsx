@@ -1,11 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import QuoteCard from "../QuoteCard";
+import Card from "react-bootstrap/Card";
+import CardGroup from "react-bootstrap/CardGroup";
+import AddQuote from "../AddQuote";
+import UserQuotes from "../userQuotes";
 
 function UserPage() {
+  const [userQuotes, setUserQuotes] = useState([]);
+  const [userInfo, setUserInfo] = useState({});
   const location = useLocation();
   const user = location.state.user;
-  console.log(user);
-  return <div>userPage</div>;
+  const handleQuoteSubmit = (newQuotes) => {
+    setUserQuotes([...userQuotes, newQuotes]);
+    console.log(userQuotes);
+    setUserInfo({ user, userQuotes });
+    console.log(userInfo);
+    localStorage.setItem(`${user.userName}`, JSON.stringify(userInfo));
+  };
+
+  return (
+    <CardGroup>
+      <Card>
+        <QuoteCard />
+      </Card>
+      <div className="d-flex flex-column">
+        <Card>
+          <AddQuote onQuoteSubmit={handleQuoteSubmit} />
+        </Card>
+        <UserQuotes user={user}/>
+      </div>
+    </CardGroup>
+  );
 }
 
 export default UserPage;
