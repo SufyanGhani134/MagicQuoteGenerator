@@ -5,7 +5,7 @@ export default function AlertCard({ isValidRef, error}) {
   const [show, setShow] = useState(true);
   function close(){
     // setShow(false)
-    isValidRef.current = true;
+    // isValidRef.current = true;
   }
 
   if (show) {

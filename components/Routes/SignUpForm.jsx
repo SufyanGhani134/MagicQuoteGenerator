@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Form, useNavigate } from "react-router-dom";
 import AlertCard from "../AlertCard";
 
@@ -6,9 +6,9 @@ function SignUpForm() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState();
+  const [errorMsg, setErrorMsg] = useState(null);
   // const [isValid, setIsValid] = useState(true)
-  const isValid = useRef(true)
+  const isValid = useRef(true);
 
   const navigate = useNavigate();
 
@@ -16,18 +16,18 @@ function SignUpForm() {
     const userNamePattern = /^[a-zA-Z\s]+$/;
     const test = userNamePattern.test(userName);
     try {
-      if (!test) throw "Invalid User Name";
-      if (password !== confirmPassword) throw "Passwords do not match";
+      if (!test) throw new Error("Invalid User Name");
+      if (password !== confirmPassword) throw new Error("Passwords do not match");
     } catch (error) {
-      setError(error);
-      // setIsValid(false)
+      setErrorMsg(error.message);
       isValid.current = false
     }
   }
+
   function handleSubmit(e) {
     e.preventDefault();
     validation();
-    console.log(isValid.current)
+    console.log(isValid.current);
     if (isValid.current == true) {
       const formData = new FormData(e.target);
       const userInfo = Object.fromEntries(formData);
@@ -38,10 +38,17 @@ function SignUpForm() {
       navigate("/");
     }
   }
+  // useEffect(() => {
+  //   if (errorMsg) {
+  //     isValid.current = false;
+  //   } else {
+  //     isValid.current = true;
+  //   }
+  // }, [errorMsg]);
 
   return (
     <>
-      {!isValid.current && <AlertCard isValidRef={isValid} error={error} />}
+      {!isValid.current && <AlertCard error={errorMsg} />}
       <h2 className="mb-3">Sign Up Info</h2>
       <Form className="w-50 container text-start" onSubmit={handleSubmit}>
         <div className="mb-3">
@@ -111,7 +118,7 @@ function SignUpForm() {
             />
           </div>
         </div>
-        <div className="col-12">
+        {/* <div className="col-12">
           <div className="form-check">
             <input
               className="form-check-input"
@@ -124,12 +131,9 @@ function SignUpForm() {
               Agree to terms and conditions
             </label>
           </div>
-        </div>
+        </div> */}
         <div className="col-12">
-          <button
-            className="btn btn-primary"
-            type="submit"
-          >
+          <button className="btn btn-primary" type="submit">
             Sign Up
           </button>
         </div>

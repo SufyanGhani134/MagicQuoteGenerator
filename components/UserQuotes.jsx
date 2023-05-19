@@ -1,9 +1,14 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
-function UserQuotes({ user }) {
+
+function UserQuotes() {
+  const location = useLocation();
+  const user = location.state.user;
   const currentUser = JSON.parse(localStorage.getItem(`${user.userName}`));
-  if(currentUser.userQuotes){
-  const userQuotes = currentUser.userQuotes 
+  if(currentUser.userQuotes.current){
+    console.log("Inside If")
+    const userQuotes = currentUser.userQuotes.current
   return (
     userQuotes && <ol className="list-group list-group-numbered">
       {userQuotes.map((userQuote, index) => (
@@ -17,6 +22,7 @@ function UserQuotes({ user }) {
     </ol>
   );
   }
+  
   
 }
 
