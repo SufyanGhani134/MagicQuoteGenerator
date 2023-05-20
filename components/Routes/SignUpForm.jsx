@@ -6,29 +6,37 @@ function SignUpForm() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errorMsg, setErrorMsg] = useState(null);
-  // const [isValid, setIsValid] = useState(true)
-  const isValid = useRef(true);
+  const [isValid, setIsValid] = useState(true);
+  const [isClicked, setIsClicked] = useState(true);
+  const name = useRef(null);
+  const errorRef = useRef(null)
 
   const navigate = useNavigate();
 
+
+
   function validation() {
+    name.current = userName
+    console.log("validation running")
     const userNamePattern = /^[a-zA-Z\s]+$/;
-    const test = userNamePattern.test(userName);
+    const test = userNamePattern.test(name.current);
+    errorRef.current = null
     try {
       if (!test) throw new Error("Invalid User Name");
       if (password !== confirmPassword) throw new Error("Passwords do not match");
     } catch (error) {
-      setErrorMsg(error.message);
-      isValid.current = false
+      errorRef.current = error.message
+      setIsClicked(!isClicked)
+      console.log(error.message, "error")
     }
   }
 
   function handleSubmit(e) {
     e.preventDefault();
     validation();
-    console.log(isValid.current);
-    if (isValid.current == true) {
+    console.log(errorRef.current)
+    if (errorRef.current == null) {
+      console.log("entering If");
       const formData = new FormData(e.target);
       const userInfo = Object.fromEntries(formData);
       let users = JSON.parse(localStorage.getItem("users")) || [];
@@ -37,18 +45,23 @@ function SignUpForm() {
       console.log(users);
       navigate("/");
     }
+
   }
-  // useEffect(() => {
-  //   if (errorMsg) {
-  //     isValid.current = false;
-  //   } else {
-  //     isValid.current = true;
-  //   }
-  // }, [errorMsg]);
+  useEffect(() => {
+    if (errorRef.current != null) {
+      setIsValid(false)
+      console.log(isValid,"useEffect")
+      console.log(isClicked, "click")
+    }
+  }, [isClicked]);
 
   return (
     <>
-      {!isValid.current && <AlertCard error={errorMsg} />}
+      {!isValid ? (
+        <AlertCard setIsValid={setIsValid} errorRef = {errorRef.current} />
+      ) : (
+        ""
+      )}
       <h2 className="mb-3">Sign Up Info</h2>
       <Form className="w-50 container text-start" onSubmit={handleSubmit}>
         <div className="mb-3">

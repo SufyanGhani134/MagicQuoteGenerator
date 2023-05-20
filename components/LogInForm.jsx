@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
@@ -8,33 +8,55 @@ function LogInForm() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const isUser = useRef(true);
+  const [isValid, setIsValid] = useState(true);
+  const [isClicked, setIsClicked] = useState(true);
+  const errorMsg = useRef(null);
+
+  useEffect(() => {
+    if (errorMsg.current !== null) {
+      setIsValid(false);
+      console.log(isValid, "useEffect");
+      console.log(isClicked, "click");
+    }
+  }, [isClicked]);
 
   function logInAuthentication(e) {
     e.preventDefault();
+    console.log(email);
     const users = JSON.parse(localStorage.getItem("users"));
-    const user = users.find((obj) => Object.values(obj).includes(email));
-    try {
-      if (!user) throw "User is not registered.. Please Sign In";
-      if (user.password !== password) throw "Password Incorrect";
-      if (user.password == "") throw "Password Required";
-    } catch (error) {
-      setError(error);
-      console.log(error);
-      isUser.current = false;
-      return isUser.current;
+    console.log(users);
+    if (users) {
+      const user = users.find((obj) => Object.values(obj).includes(email));
+      console.log(user);
+      errorMsg.current = null;
+      try {
+        if (!user) throw new Error("User is not registered.. Please Sign In");
+        if (user.password !== password) throw new Error("Password Incorrect");
+        if (user.password == "") throw new Error("Password Required");
+      } catch (error) {
+        errorMsg.current = error.message;
+        setIsClicked(!isClicked);
+        console.log(error.message, "error");
+      }
+      if (errorMsg.current == null) {
+        console.log(user.userName, errorMsg);
+        navigate(`/${user.userName}`, { state: { user } });
+      }
+    }else{
+      errorMsg.current = "No users in the Storage"
+      setIsClicked(!isClicked);
     }
-    console.log(user);
-    if (user) {
-      console.log(user.userName);
-      navigate(`/${user.userName}`, { state: { user } });
-    }
+
+    
   }
 
   return (
     <>
-      {!isUser.current && <AlertCard isValidRef={isUser} error={error} />}
+      {!isValid ? (
+        <AlertCard setIsValid={setIsValid} errorRef={errorMsg.current} />
+      ) : (
+        ""
+      )}
       <Form className="container">
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>

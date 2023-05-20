@@ -43,9 +43,9 @@ function UserPage() {
 
         console.log(existingUser, "existingUser")
       setUserInfo({user, userQuotes});
-      // console.log({ existingUser, userQuotes})
-      localStorage.setItem(`${user.userName}`, JSON.stringify(userInfo));
-      console.log(userInfo, "userInfo");
+      console.log(existingUser, "Existing user")
+      localStorage.setItem(`${user.userName}`, JSON.stringify(existingUser));
+      // console.log(userInfo, "userInfo");
     } else {
       console.log("Inside Else")
       userQuotes.current = [...userQuotes.current, newQuotes];

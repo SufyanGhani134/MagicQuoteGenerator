@@ -25,9 +25,7 @@ function QuoteCard() {
 
           <footer className="blockquote-footer">
             <cite title="Source Title">
-              {magicQuotes.author
-                ? "Anonymous"
-                : magicQuotes[randomNumber].author}
+              {magicQuotes[randomNumber].author}
             </cite>
           </footer>
         </blockquote>

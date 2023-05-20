@@ -5,12 +5,19 @@ const URL = "https://type.fit/api/quotes";
 function useFetch() {
   const [magicQuotes, setMagicQuotes] = useState("Magic Quote");
   const [error, setError] = useState();
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   async function getData() {
     try {
       const response = await fetch(URL);
+      // const data = await response.json();
       const data = await response.json();
+      data.forEach(obj => {
+        if(obj.author == null){
+            obj.author = "Anonymous"
+        }
+      });
+      console.log(data)
       localStorage.setItem("magicQuotes", JSON.stringify(data));
       setMagicQuotes(JSON.parse(localStorage.getItem("magicQuotes")));
     } catch (error) {
