@@ -1,6 +1,6 @@
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import LogInForm from '../LogInForm';
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import LogInForm from "../LogInForm";
 
 export default function LogInModal(props) {
   return (
@@ -11,9 +11,7 @@ export default function LogInModal(props) {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
-        </Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">Log In</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <LogInForm />
@@ -24,4 +22,3 @@ export default function LogInModal(props) {
     </Modal>
   );
 }
-

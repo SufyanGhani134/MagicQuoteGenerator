@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
-import Alert from 'react-bootstrap/Alert';
+import React from "react";
 
-export default function AlertCard({isValidRef, error}) {
-  const [show, setShow] = useState(true);
-  function close(){
-    setShow(false)
-    isValidRef.current = true
-  }
-
-  if (show) {
-    return (
-      <Alert variant="danger" onClose={close} dismissible>
-        <Alert.Heading>{error}</Alert.Heading>
-      </Alert>
-    );
-  }
+export default function AlertCard({ setIsValid, errorRef }) {
+  const changeValid = () => {
+    setIsValid(true);
+  };
+  return (
+    <div
+      className="alert alert-danger alert-dismissible fade show w-100"
+      role="alert"
+    >
+      <strong>Alert!</strong> {errorRef}
+      <button
+        type="button"
+        className="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+        onClick={changeValid}
+      ></button>
+    </div>
+  );
 }
