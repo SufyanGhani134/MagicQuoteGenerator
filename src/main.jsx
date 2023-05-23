@@ -4,8 +4,7 @@ import App from "./App.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SignUpForm from "../components/Routes/SignUpForm.jsx";
-import UserPage from "../components/Routes/userPage.jsx";
-
+import UserPage from "../components/Routes/UserPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -14,13 +13,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/Sign-Up",
-    element: <SignUpForm />
+    element: <SignUpForm />,
   },
   {
     path: "/:userName",
-    element: <UserPage />
-  }
-
+    element: <UserPage />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

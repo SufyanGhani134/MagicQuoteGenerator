@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 import AlertCard from "./AlertCard";
+import { useEffect, useRef, useState } from "react";
 
 function LogInForm() {
   const navigate = useNavigate();
@@ -15,19 +15,14 @@ function LogInForm() {
   useEffect(() => {
     if (errorMsg.current !== null) {
       setIsValid(false);
-      console.log(isValid, "useEffect");
-      console.log(isClicked, "click");
     }
   }, [isClicked]);
 
   function logInAuthentication(e) {
     e.preventDefault();
-    console.log(email);
     const users = JSON.parse(localStorage.getItem("users"));
-    console.log(users);
     if (users) {
       const user = users.find((obj) => Object.values(obj).includes(email));
-      console.log(user);
       errorMsg.current = null;
       try {
         if (!user) throw new Error("User is not registered.. Please Sign In");
@@ -36,18 +31,14 @@ function LogInForm() {
       } catch (error) {
         errorMsg.current = error.message;
         setIsClicked(!isClicked);
-        console.log(error.message, "error");
       }
       if (errorMsg.current == null) {
-        console.log(user.userName, errorMsg);
         navigate(`/${user.userName}`, { state: { user } });
       }
-    }else{
-      errorMsg.current = "No users in the Storage"
+    } else {
+      errorMsg.current = "No users in the Storage";
       setIsClicked(!isClicked);
     }
-
-    
   }
 
   return (

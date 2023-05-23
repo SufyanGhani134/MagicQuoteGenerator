@@ -2,16 +2,16 @@ import React, { useState } from "react";
 
 function AddQuote({ onQuoteSubmit }) {
   const [author, setAuthor] = useState("");
-  const [quote, setQuote] = useState("");
-  function handleFormSubmit(e){
+  const [text, setText] = useState("");
+  function handleFormSubmit(e) {
     e.preventDefault();
-    onQuoteSubmit({author, quote})
-    setAuthor("")
-    setQuote("")
+    onQuoteSubmit({ author, text });
+    setAuthor("");
+    setText("");
   }
 
   return (
-    <form onSubmit={handleFormSubmit}>
+    <form onSubmit={handleFormSubmit} className="w-75">
       <div className="input-group">
         <span className="input-group-text">Author</span>
         <input
@@ -31,11 +31,11 @@ function AddQuote({ onQuoteSubmit }) {
         <textarea
           className="form-control"
           aria-label="With textarea"
-          name="quote"
-          value={quote}
+          name="text"
+          value={text}
           onChange={(e) => {
             e.preventDefault();
-            setQuote(e.target.value);
+            setText(e.target.value);
           }}
           required
         ></textarea>

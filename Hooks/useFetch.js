@@ -5,19 +5,17 @@ const URL = "https://type.fit/api/quotes";
 function useFetch() {
   const [magicQuotes, setMagicQuotes] = useState("Magic Quote");
   const [error, setError] = useState();
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
 
   async function getData() {
     try {
       const response = await fetch(URL);
-      // const data = await response.json();
       const data = await response.json();
-      data.forEach(obj => {
-        if(obj.author == null){
-            obj.author = "Anonymous"
+      data.forEach((obj) => {
+        if (obj.author == null) {
+          obj.author = "Anonymous";
         }
       });
-      console.log(data)
       localStorage.setItem("magicQuotes", JSON.stringify(data));
       setMagicQuotes(JSON.parse(localStorage.getItem("magicQuotes")));
     } catch (error) {
@@ -25,15 +23,15 @@ function useFetch() {
     }
   }
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     const storedQuotes = JSON.parse(localStorage.getItem("magicQuotes"));
     if (storedQuotes) {
       setMagicQuotes(storedQuotes);
     } else {
       getData();
     }
-    setIsLoading(false)
+    setIsLoading(false);
   }, [URL]);
-  return { magicQuotes, error, isLoading};
+  return { magicQuotes, error, isLoading };
 }
 export default useFetch;

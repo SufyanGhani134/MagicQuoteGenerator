@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import useFetch from "./useFetch";
+import { useEffect, useState } from "react";
 
 function useRandom() {
   const [randomNumber, setRandomNumber] = useState(0);
@@ -13,7 +13,7 @@ function useRandom() {
     }
   }, [click]);
 
-  return {randomNumber, click, setClick}
+  return { randomNumber, click, setClick };
 }
 
 export default useRandom;
