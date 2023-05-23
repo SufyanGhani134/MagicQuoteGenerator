@@ -5,7 +5,7 @@ import AddQuote from "../AddQuote";
 import QuoteCarousel from "../QuoteCarousel";
 import UserQuotes from "../UserQuotes";
 import NavBar from "../NavBar";
-import UserSearchModal from "../userSearchModal";
+import UserSearchModal from "../UserSearchModal";
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
