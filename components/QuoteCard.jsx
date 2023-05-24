@@ -4,6 +4,7 @@ import useFetch from "../Hooks/useFetch";
 import useRandom from "../Hooks/useRandom";
 import Spinner from "react-bootstrap/Spinner";
 import React from "react";
+import "../src/Style.css";
 
 function QuoteCard() {
   const { magicQuotes, error, isLoading } = useFetch();
@@ -11,7 +12,7 @@ function QuoteCard() {
 
   return (
     <>
-      <Card className="w-50 my-4">
+      <Card className="magicCardDisplay my-4">
         <Card.Header>Magic Quote</Card.Header>
         <Card.Body>
           <blockquote className="blockquote mb-0">

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../src/Style.css";
 
 function AddQuote({ onQuoteSubmit }) {
   const [author, setAuthor] = useState("");
@@ -11,7 +12,7 @@ function AddQuote({ onQuoteSubmit }) {
   }
 
   return (
-    <form onSubmit={handleFormSubmit} className="w-75">
+    <form onSubmit={handleFormSubmit} className="addQuoteForm">
       <div className="input-group">
         <span className="input-group-text">Author</span>
         <input

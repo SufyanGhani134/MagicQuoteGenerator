@@ -8,6 +8,8 @@ import NavBar from "../NavBar";
 import UserSearchModal from "../UserSearchModal";
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import "../../src/Style.css"
+
 
 function UserPage() {
   const navigate = useNavigate();
@@ -54,29 +56,29 @@ function UserPage() {
   }, [searchDisplay]);
 
   return (
-    <>
+    <div className="d-flex flex-column align-items-center">
       <NavBar
         searchArr={existingUser ? existingUser.userQuotes.current : []}
         setSearchDisplay={setSearchDisplay}
         setSearchIndex={setSearchIndex}
       >
-        <Button variant="outline-primary" onClick={() => navigate("/")}>
+        <Button variant="info  mx-2 text-light" onClick={() => navigate("/")}>
           Log out
         </Button>
       </NavBar>
-      <CardGroup className="d-flex flex-column align-items-center">
-        <Card className="w-75 my-3 p-0" style={{ background: "darkslateblue" }}>
+      <CardGroup className="d-flex flex-column align-items-center w-100">
+        <Card className="my-3  cardCarousel">
           <QuoteCarousel />
         </Card>
 
         <Card
-          className="my-3 w-75 d-flex align-items-center"
+          className="my-3 d-flex align-items-center addQuoteForm"
           style={{ backgroundColor: "lightsteelblue", borderRadius: "5em" }}
         >
           <AddQuote onQuoteSubmit={handleQuoteSubmit} />
         </Card>
         <div
-          style={{ backgroundColor: "cornflowerblue", borderRadius: "5em" }}
+          style={{ borderRadius: "5em" }}
           className="w-75 d-flex justify-content-center"
         >
           {existingUser && (
@@ -94,7 +96,7 @@ function UserPage() {
           searchDisplay={searchDisplay}
         />
       )}
-    </>
+    </div>
   );
 }
 

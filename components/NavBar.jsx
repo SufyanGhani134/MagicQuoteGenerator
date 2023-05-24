@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import useSearch from "../Hooks/useSearch";
 import DropDownButton from "./DropDownButton";
 import { useEffect, useState } from "react";
+import "../src/Style.css";
 
 function NavBar(props) {
   const [searchQuote, setSearchQuote] = useState("");
@@ -33,23 +34,20 @@ function NavBar(props) {
   }
 
   return (
-    <Navbar
-      className="w-100"
-      style={{ background: "darkslateblue", borderRadius: "1em" }}
-    >
-      <Container>
-        <Link to={"/"}>
-          <Navbar.Brand className="text-light">
+    <>
+      <nav
+        className="navbar w-100"
+        style={{ background: "darkslateblue"}}
+      >
+        <div className="container-fluid">
+          <Link to={"/"} className="navbar-brand text-light">
             Magic Quote Generator
-          </Navbar.Brand>
-        </Link>
-        <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-end">
-          <Form className="d-flex mx-2 w-50">
-            <Form.Control
+          </Link>
+          <form className="navBarSearchDisplay">
+            <input
+              className="form-control me-2"
               type="search"
               placeholder="Search Quote..."
-              className="me-2"
               aria-label="Search"
               value={searchQuote}
               onChange={(e) => {
@@ -63,12 +61,33 @@ function NavBar(props) {
               selectedItem={selectedItem}
               searchHandler={searchHandler}
             />
-          </Form>
+          </form>
+          <div className="navBarSearchDisplay">{props.children}</div>  
+        </div>
+      </nav>
+      
+      <form className="searchDisplay my-3">
+        <input
+          className="form-control me-2"
+          type="search"
+          placeholder="Search Quote..."
+          aria-label="Search"
+          value={searchQuote}
+          onChange={(e) => {
+            e.preventDefault();
+            setSearchQuote(e.target.value);
+          }}
+          required
+        />
+        <DropDownButton
+          handleItemClick={handleItemClick}
+          selectedItem={selectedItem}
+          searchHandler={searchHandler}
+        />
+      </form>
+      <div className="searchDisplay my-3">{props.children}</div>  
 
-          <div>{props.children}</div>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    </>
   );
 }
 

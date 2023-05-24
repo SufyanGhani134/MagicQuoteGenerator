@@ -1,6 +1,7 @@
 import { Form, useNavigate } from "react-router-dom";
 import AlertCard from "../AlertCard";
 import React, { useEffect, useRef, useState } from "react";
+import '../../src/Style.css';
 
 function SignUpForm() {
   const [userName, setUserName] = useState("");
@@ -75,7 +76,7 @@ function SignUpForm() {
         ""
       )}
       <div
-        className="text-light w-50"
+        className="text-light signUpForm"
         style={{ backgroundColor: "darkblue", borderRadius: "3em" }}
       >
         <h2 className="mb-3 text-center my-3">Sign Up Info</h2>
