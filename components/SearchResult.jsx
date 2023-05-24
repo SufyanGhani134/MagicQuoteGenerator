@@ -12,7 +12,7 @@ function SearchResult(props) {
   return (
     props.searchDisplay && (
       <div className="row container">
-        <h2 className="text-center">Search Results</h2>
+        <h2 className="text-center text-primary">Search Results</h2>
         {props.searchDisplay.map((result, index) => (
           <div className="col-sm-6 my-3" key={index}>
             <div className="card " style={{ padding: "1em" }}>

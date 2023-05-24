@@ -17,10 +17,10 @@ function App() {
   return (
     <div className="d-flex flex-column align-items-center">
       <NavBar searchArr={magicQuotes} setSearchDisplay={setSearchDisplay}>
-        <Button variant="outline-primary" onClick={() => navigate("/Sign-Up")}>
+        <Button variant="primary" onClick={() => navigate("/Sign-Up")}>
           Sign Up
         </Button>
-        <Button variant="primary mx-2" onClick={() => setModalShow(true)}>
+        <Button variant="info mx-2 text-light" onClick={() => setModalShow(true)}>
           Add Quote
         </Button>
       </NavBar>

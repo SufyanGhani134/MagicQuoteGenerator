@@ -1,0 +1,43 @@
+.navBarSearchDisplay {
+  display: flex;
+}
+.searchDisplay {
+  display: none;
+}
+
+.signUpForm{
+    width:50%;
+}
+.cardCarousel{
+    background: darkslateblue;
+    padding: 0;
+    width: 75%;
+}
+.addQuoteForm{
+    width: 75%;
+}
+
+
+@media screen /* and (min-device-width: 320px) */ and (max-device-width: 800px) /* and (-webkit-min-device-pixel-ratio: 1) */ {
+  .navBarSearchDisplay {
+    display: none;
+  }
+  .searchDisplay {
+    display: flex;
+  }
+  .magicQuoteDisplay{
+    width: auto;
+}
+.signUpForm{
+    width:100%;
+}
+.cardCarousel{
+    width: 100%;
+}
+.card-group{
+    font-size: 12px;
+}
+.addQuoteForm{
+    width: 100%;
+}
+}
